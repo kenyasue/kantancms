@@ -1,9 +1,15 @@
 import Link from 'next/link';
-import { Post } from '@/lib/database';
+import { Post, getDataSource } from '@/lib/database';
+import DeleteButton from './DeleteButton';
 
 export default async function AdminPosts() {
-  // In a real implementation, we would fetch posts from the database here
-  const posts: Post[] = []; // Placeholder for posts data
+  // Fetch posts from the database
+  const dataSource = await getDataSource();
+  const postRepository = dataSource.getRepository(Post);
+  const posts = await postRepository.find({
+    relations: ['user'],
+    order: { createdAt: 'DESC' }
+  });
 
   return (
     <div>
@@ -76,14 +82,7 @@ export default async function AdminPosts() {
                           >
                             Edit
                           </Link>
-                          <button
-                            className="text-red-600 hover:text-red-900"
-                            onClick={() => {
-                              // Delete functionality would go here
-                            }}
-                          >
-                            Delete
-                          </button>
+                          <DeleteButton postId={post.id} />
                         </td>
                       </tr>
                     ))

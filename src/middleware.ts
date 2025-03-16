@@ -6,14 +6,22 @@ const publicPaths = ['/admin/login'];
 export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
-    // Only apply middleware to admin routes
+    // Add current path to headers for server components
+    const response = NextResponse.next({
+        request: {
+            headers: new Headers(request.headers),
+        },
+    });
+    response.headers.set('x-pathname', pathname);
+
+    // Only apply auth middleware to admin routes
     if (!pathname.startsWith('/admin')) {
-        return NextResponse.next();
+        return response;
     }
 
     // Allow access to public paths
     if (publicPaths.includes(pathname)) {
-        return NextResponse.next();
+        return response;
     }
 
     // Check for auth cookie
@@ -27,13 +35,13 @@ export async function middleware(request: NextRequest) {
 
     // Verify the auth cookie by calling the auth API
     try {
-        const response = await fetch(new URL('/api/auth', request.url), {
+        const authResponse = await fetch(new URL('/api/auth', request.url), {
             headers: {
                 Cookie: `auth=${authCookie.value}`,
             },
         });
 
-        const data = await response.json();
+        const data = await authResponse.json();
 
         if (!data.authenticated) {
             const url = new URL('/admin/login', request.url);
@@ -45,10 +53,13 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(url);
     }
 
-    return NextResponse.next();
+    return response;
 }
 
-// Configure middleware to run only on admin routes
+// Configure middleware to run on all routes
 export const config = {
-    matcher: '/admin/:path*',
+    matcher: [
+        // Apply to all routes
+        '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    ],
 };
