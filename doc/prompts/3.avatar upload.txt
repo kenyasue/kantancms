@@ -1,0 +1,10 @@
+Please make following changes
+- Make feature branch - features/edit_profile
+- Add user icon in header to both frontend and backend
+- When user click the icon the menu opened.
+ - Edit profile
+ - logout
+- Users can edit their profile in Edit Profile screen.
+- Users can also upload their avatar in the screen.
+- Reuser component for both admin and in front
+- Commit, Push, send PR

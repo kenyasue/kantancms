@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Geist, Geist_Mono } from "next/font/google";
 import "../../globals.css";
 import DatabaseInitializer from "@/lib/components/DatabaseInitializer";
+import UserMenu from "@/lib/components/UserMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -100,30 +101,13 @@ export default function RootLayout({
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:items-center">
                   {user && (
-                    <div className="flex items-center mr-4">
-                      <div className="flex-shrink-0 h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-                        {user.avatar ? (
-                          <Image src={user.avatar} alt={user.username} width={32} height={32} className="object-cover" />
-                        ) : (
-                          <span className="text-gray-500 text-sm font-medium">
-                            {user.username.charAt(0).toUpperCase()}
-                          </span>
-                        )}
-                      </div>
-                      <span className="ml-2 text-sm font-medium text-gray-700">{user.username}</span>
-                    </div>
+                    <UserMenu user={user} isAdmin={true} />
                   )}
                   <Link
                     href="/"
-                    className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium ml-4"
                   >
                     View Site
-                  </Link>
-                  <Link
-                    href="/admin/logout"
-                    className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Logout
                   </Link>
                 </div>
               </div>
