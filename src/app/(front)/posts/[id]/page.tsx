@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Post, getDataSource } from '@/lib/database';
 import FrontendHeader from '@/lib/components/FrontendHeader';
 import PostSidebar from '@/lib/components/PostSidebar';
+import EditorJSRenderer from '@/lib/components/EditorJSRenderer';
 
 interface PostDetailProps {
   params: {
@@ -80,8 +81,8 @@ export default async function PostDetail({ params }: PostDetailProps) {
                     </p>
                   </div>
                   <div className="border-t border-gray-200">
-                    <div className="px-4 py-5 sm:p-6 prose max-w-none whitespace-pre-wrap">
-                      {post.content}
+                    <div className="px-4 py-5 sm:p-6">
+                      <EditorJSRenderer data={post.content} />
                     </div>
                   </div>
                   <div className="border-t border-gray-200 px-4 py-4 sm:px-6">

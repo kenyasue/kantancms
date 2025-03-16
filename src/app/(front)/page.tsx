@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Post, getDataSource } from '@/lib/database';
 import FrontendHeader from '@/lib/components/FrontendHeader';
 import PostSidebar from '@/lib/components/PostSidebar';
+import EditorJSRenderer from '@/lib/components/EditorJSRenderer';
 
 export default async function Home() {
   // Fetch posts from the database
@@ -37,8 +38,23 @@ export default async function Home() {
                           <h3 className="text-lg font-medium text-gray-900 truncate">
                             {post.title}
                           </h3>
-                          <div className="mt-2 text-sm text-gray-500">
-                            <p className="line-clamp-3">{post.content}</p>
+                          <div className="mt-2 text-sm text-gray-500 line-clamp-3 overflow-hidden max-h-16">
+                            {/* Try to extract a preview from the EditorJS content */}
+                            {(() => {
+                              try {
+                                const content = JSON.parse(post.content);
+                                if (content.blocks && content.blocks.length > 0) {
+                                  // Get the first block's text content
+                                  const firstBlock = content.blocks[0];
+                                  if (firstBlock.type === 'paragraph' && firstBlock.data.text) {
+                                    return firstBlock.data.text.substring(0, 150) + (firstBlock.data.text.length > 150 ? '...' : '');
+                                  }
+                                }
+                              } catch (e) {
+                                // If parsing fails, just show the first 150 characters
+                              }
+                              return post.content.substring(0, 150) + (post.content.length > 150 ? '...' : '');
+                            })()}
                           </div>
                           <div className="mt-3">
                             <Link

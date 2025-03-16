@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Editor from '@/lib/components/EditorJS';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
@@ -18,7 +19,7 @@ interface User {
 export default function NewPost() {
     const router = useRouter();
     const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState<any>({});
     const [parentId, setParentId] = useState<string | null>(null);
     const [posts, setPosts] = useState<Post[]>([]);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -76,7 +77,7 @@ export default function NewPost() {
                 },
                 body: JSON.stringify({
                     title,
-                    content,
+                    content: JSON.stringify(content),
                     userId: currentUser.id,
                     parentId: parentId || null,
                 }),
@@ -131,16 +132,12 @@ export default function NewPost() {
                 </div>
 
                 <div>
-                    <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-2">
                         Content <span className="text-red-500">*</span>
                     </label>
-                    <textarea
-                        id="content"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        rows={15}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-black px-4 py-2"
-                        required
+                    <Editor
+                        data={content}
+                        onChange={setContent}
                     />
                 </div>
 

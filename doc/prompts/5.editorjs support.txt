@@ -1,0 +1,4 @@
+Please make following changes
+- checkout to branch features/editorjs
+- Please change content editor for Post mode to editor.js
+- Change render logic for frontend to render editor.js content properly
