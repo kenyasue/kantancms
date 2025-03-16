@@ -7,7 +7,7 @@ export default async function AdminUsers() {
   // Fetch users from the database
   const dataSource = await getDataSource();
   const userRepository = dataSource.getRepository(User);
-  
+
   const users = await userRepository.find({
     select: ['id', 'username', 'avatar', 'createdAt', 'modifiedAt'],
     order: { createdAt: 'DESC' }
@@ -70,10 +70,12 @@ export default async function AdminUsers() {
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           {user.avatar ? (
-                            <img
+                            <Image
                               src={user.avatar}
                               alt={user.username}
-                              className="h-10 w-10 rounded-full"
+                              width={40}
+                              height={40}
+                              className="rounded-full"
                             />
                           ) : (
                             <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">

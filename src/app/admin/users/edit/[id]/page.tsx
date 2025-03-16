@@ -3,6 +3,7 @@
 import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface User {
   id: string;
@@ -13,6 +14,7 @@ interface User {
 }
 
 export default function EditUser({ params }: { params: { id: string } }) {
+
   const router = useRouter();
   const [formData, setFormData] = useState({
     username: '',
@@ -27,31 +29,32 @@ export default function EditUser({ params }: { params: { id: string } }) {
   // Fetch user data
   useEffect(() => {
     const fetchUser = async () => {
+
       try {
         const response = await fetch(`/api/users/${params.id}`);
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch user');
         }
-        
+
         const user: User = await response.json();
-        
+
         setFormData({
           username: user.username,
           password: '', // Don't populate password
         });
-        
+
         if (user.avatar) {
           setAvatarPreview(user.avatar);
         }
-        
+
         setIsLoading(false);
       } catch (err) {
         setError('Failed to load user data');
         setIsLoading(false);
       }
     };
-    
+
     fetchUser();
   }, [params.id]);
 
@@ -88,12 +91,12 @@ export default function EditUser({ params }: { params: { id: string } }) {
       // Create form data for submission
       const submitData = new FormData();
       submitData.append('username', formData.username);
-      
+
       // Only include password if it was changed
       if (formData.password) {
         submitData.append('password', formData.password);
       }
-      
+
       // Only include avatar if a new one was selected
       if (avatar) {
         submitData.append('avatar', avatar);
@@ -166,7 +169,7 @@ export default function EditUser({ params }: { params: { id: string } }) {
             required
           />
         </div>
-        
+
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
             Password (leave blank to keep current password)
@@ -181,7 +184,7 @@ export default function EditUser({ params }: { params: { id: string } }) {
             placeholder="New password (optional)"
           />
         </div>
-        
+
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="avatar">
             Avatar
@@ -194,18 +197,20 @@ export default function EditUser({ params }: { params: { id: string } }) {
             onChange={handleAvatarChange}
             accept="image/*"
           />
-          
+
           {avatarPreview && (
             <div className="mt-2">
-              <img
+              <Image
                 src={avatarPreview}
                 alt="Avatar preview"
-                className="h-20 w-20 rounded-full object-cover"
+                width={80}
+                height={80}
+                className="rounded-full object-cover"
               />
             </div>
           )}
         </div>
-        
+
         <div className="flex items-center justify-between">
           <button
             className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"

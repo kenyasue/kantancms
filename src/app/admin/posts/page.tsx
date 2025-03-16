@@ -55,7 +55,7 @@ export default async function AdminPosts() {
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {posts.length > 0 ? (
-                    posts.map((post: any) => (
+                    posts.map((post: Post) => (
                       <tr key={post.id}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                           {post.title}
