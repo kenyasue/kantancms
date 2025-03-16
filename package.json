@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "create-test-user": "npx ts-node --esm src/scripts/create-test-user.ts"
+    "create-test-user": "npx ts-node -P tsconfig.scripts.json src/scripts/create-test-user.ts"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

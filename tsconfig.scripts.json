@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        // If you want to compile to CommonJS and keep it simple:
+        "module": "CommonJS",
+        // or if you prefer ESM, do "module": "ESNext" or "module": "NodeNext",
+        // but often CommonJS is simpler for scripts.
+        "outDir": "dist-scripts",
+        "noEmit": true
+    }
+}

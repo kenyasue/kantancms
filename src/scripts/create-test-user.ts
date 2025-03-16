@@ -11,7 +11,8 @@ async function createTestUser() {
 
         if (existingUser) {
             console.log('Test user already exists.');
-            return;
+            await userRepository.delete({ id: existingUser.id });
+            console.log('Deleted existing test user.');
         }
 
         console.log('Creating test user...');
