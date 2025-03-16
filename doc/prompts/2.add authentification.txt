@@ -1,0 +1,1 @@
+Please add authentification with username and password to login into the admin console.

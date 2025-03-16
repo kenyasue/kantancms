@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "create-test-user": "npx ts-node --esm src/scripts/create-test-user.ts"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -31,6 +32,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

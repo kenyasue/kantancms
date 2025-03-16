@@ -38,15 +38,16 @@ export async function GET(
 // PUT /api/users/[id] - Update a user
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await props.params;
     const dataSource = await getDataSource();
     const userRepository = dataSource.getRepository(User);
 
     // Find the user to update
     const user = await userRepository.findOne({
-      where: { id: params.id }
+      where: { id: id }
     });
 
     if (!user) {
@@ -131,15 +132,16 @@ export async function PUT(
 // DELETE /api/users/[id] - Delete a user
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await props.params;
     const dataSource = await getDataSource();
     const userRepository = dataSource.getRepository(User);
 
     // Find the user to delete
     const user = await userRepository.findOne({
-      where: { id: params.id }
+      where: { id: id }
     });
 
     if (!user) {

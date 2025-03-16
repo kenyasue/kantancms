@@ -1,16 +1,52 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'KantanCMS Admin',
-  description: 'Admin dashboard for KantanCMS',
-};
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+
+interface User {
+  id: string;
+  username: string;
+  avatar: string | null;
+}
 
 export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch('/api/auth');
+        const data = await response.json();
+
+        if (data.authenticated) {
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="text-center">
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-100">
       <nav className="bg-white shadow-sm">
@@ -44,6 +80,20 @@ export default function AdminLayout({
               </div>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:items-center">
+              {user && (
+                <div className="flex items-center mr-4">
+                  <div className="flex-shrink-0 h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+                    {user.avatar ? (
+                      <Image src={user.avatar} alt={user.username} width={32} height={32} className="object-cover" />
+                    ) : (
+                      <span className="text-gray-500 text-sm font-medium">
+                        {user.username.charAt(0).toUpperCase()}
+                      </span>
+                    )}
+                  </div>
+                  <span className="ml-2 text-sm font-medium text-gray-700">{user.username}</span>
+                </div>
+              )}
               <Link
                 href="/"
                 className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
