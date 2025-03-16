@@ -31,6 +31,6 @@ export const getDataSource = async () => {
   return AppDataSource;
 };
 
-// Export entities
+// Export entities - Post must be exported after User to resolve circular dependency
 export * from './entities/User';
 export * from './entities/Post';

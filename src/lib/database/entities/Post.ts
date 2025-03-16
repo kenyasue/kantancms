@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { User } from './User';
+// Forward reference to User to avoid circular dependency
+import type { User } from './User';
 
 @Entity('posts')
 export class Post {
@@ -28,7 +29,7 @@ export class Post {
   @JoinColumn({ name: 'parentId' })
   parent: Post;
 
-  @ManyToOne(() => User, user => user.posts)
+  @ManyToOne('User', 'posts')
   @JoinColumn({ name: 'userId' })
   user: User;
 }

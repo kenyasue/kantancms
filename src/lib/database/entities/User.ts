@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { Post } from './Post';
+// Forward reference to Post to avoid circular dependency
+import type { Post } from './Post';
 import * as bcrypt from 'bcrypt';
 
 @Entity('users')
@@ -22,7 +23,7 @@ export class User {
   @UpdateDateColumn()
   modifiedAt: Date;
 
-  @OneToMany(() => Post, post => post.user)
+  @OneToMany('Post', 'user')
   posts: Post[];
 
   // Method to hash password before saving
