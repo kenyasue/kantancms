@@ -40,7 +40,8 @@ export default function UserMenu({ user, isAdmin = false }: UserMenuProps) {
             await fetch('/api/auth', {
                 method: 'DELETE',
             });
-            router.push(isAdmin ? '/admin/login' : '/');
+            // Always redirect to frontend on logout
+            router.push('/');
             router.refresh();
         } catch (error) {
             console.error('Logout error:', error);
@@ -106,8 +107,18 @@ export default function UserMenu({ user, isAdmin = false }: UserMenuProps) {
                         >
                             Edit Profile
                         </Link>
+                        {!isAdmin && (
+                            <Link
+                                href="/admin"
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                role="menuitem"
+                                onClick={() => setIsOpen(false)}
+                            >
+                                Admin Console
+                            </Link>
+                        )}
                         <button
-                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                             role="menuitem"
                             onClick={() => {
                                 setIsOpen(false);
