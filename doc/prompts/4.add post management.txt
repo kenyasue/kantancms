@@ -1,0 +1,7 @@
+Please make following changes
+- Make feature branch - features/post_crud
+- Add CRUD operation to Post model in admin console
+- Use big textbox for content
+- Admins can select parent post to organize in tree structure
+- Change front page to show post in tree structure in sidebar
+- When user click post on sidebar move to detail page for the post
