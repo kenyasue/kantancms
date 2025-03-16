@@ -1,0 +1,18 @@
+Please generate simple project.
+This project is simple cms with admin console and frontpage.
+Please just generate boilerplate which support following lib and features first
+
+- Tech stack
+  -- NextJS14 - App Router
+  -- TypeORM
+  -- Tailwind css
+  -- Docker Compose
+
+- Database
+  -- Support MySQL,Postgresql,Sqllite, use SQLite for testing and for development
+  -- Table structure
+  --- User ( id, username  ,password, avatar, modifiedAt, createdAt)
+  --- Posts ( id, parentId, userId, title, content, modifiedAt, createdAt )
+
+- Git
+  -- Work in dev branch so I can manually push to main when everything works

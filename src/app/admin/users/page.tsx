@@ -1,9 +1,17 @@
 import Link from 'next/link';
-import { User } from '@/lib/database';
+import Image from 'next/image';
+import { getDataSource, User } from '@/lib/database';
+import DeleteButton from './DeleteButton';
 
 export default async function AdminUsers() {
-  // In a real implementation, we would fetch users from the database here
-  const users: User[] = []; // Placeholder for users data
+  // Fetch users from the database
+  const dataSource = await getDataSource();
+  const userRepository = dataSource.getRepository(User);
+  
+  const users = await userRepository.find({
+    select: ['id', 'username', 'avatar', 'createdAt', 'modifiedAt'],
+    order: { createdAt: 'DESC' }
+  });
 
   return (
     <div>
@@ -86,14 +94,7 @@ export default async function AdminUsers() {
                           >
                             Edit
                           </Link>
-                          <button
-                            className="text-red-600 hover:text-red-900"
-                            onClick={() => {
-                              // Delete functionality would go here
-                            }}
-                          >
-                            Delete
-                          </button>
+                          <DeleteButton userId={user.id} username={user.username} />
                         </td>
                       </tr>
                     ))

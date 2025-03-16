@@ -13,8 +13,8 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ nullable: true })
-  avatar: string;
+  @Column({ nullable: true, type: 'varchar', default: null })
+  avatar: string | null;
 
   @CreateDateColumn()
   createdAt: Date;
