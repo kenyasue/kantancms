@@ -22,13 +22,17 @@ export default function Editor({ data, onChange, placeholder, readOnly = false }
     const editorRef = useRef<any | null>(null);
     const holderRef = useRef<HTMLDivElement>(null);
     const [isReady, setIsReady] = useState(false);
+    let editor: any | null = null;
+    console.log("render editor");
 
     // Initialize editor
     useEffect(() => {
         if (!holderRef.current) return;
+        if (editor) return;
 
         // Clean up previous instance
         if (editorRef.current) {
+            console.log("cleanup")
             try {
                 // Some versions of EditorJS might not have destroy method directly accessible
                 if (typeof editorRef.current.destroy === 'function') {
@@ -40,8 +44,8 @@ export default function Editor({ data, onChange, placeholder, readOnly = false }
             editorRef.current = null;
         }
 
-        const editor = new EditorJS({
-            holder: holderRef.current,
+        editor = new EditorJS({
+            holderId: "editor",
             tools: {
                 header: {
                     class: Header,
@@ -150,6 +154,7 @@ export default function Editor({ data, onChange, placeholder, readOnly = false }
         <div className="editor-js-container">
             <div
                 ref={holderRef}
+                id="editor"
                 className="min-h-[300px] border border-gray-300 rounded-md p-4 bg-white"
             />
             {!isReady && (
