@@ -88,3 +88,52 @@ body {
 .dark .hover\:text-gray-700:hover {
   color: #ffffff;
 }
+
+/* Fix text colors in dark mode */
+.dark .text-black {
+  color: #f5f5f5;
+}
+
+/* Fix for treeview in front page */
+.dark .text-sm.text-black {
+  color: #f5f5f5;
+}
+
+/* Fix for "Latest Posts" header */
+.dark h2.text-2xl.font-bold.text-black {
+  color: #f5f5f5;
+}
+
+/* Fix for Post form content in admin */
+.dark .ce-paragraph {
+  color: #f5f5f5;
+}
+
+.dark .ce-block--selected .ce-block__content,
+.dark .ce-inline-toolbar,
+.dark .codex-editor--narrow .ce-toolbox,
+.dark .ce-conversion-toolbar,
+.dark .ce-settings,
+.dark .ce-settings__button,
+.dark .ce-toolbar__settings-btn,
+.dark .cdx-button,
+.dark .ce-toolbar__plus {
+  background: #2a2a2a;
+  color: #f5f5f5;
+  border-color: #444;
+}
+
+.dark .ce-inline-tool,
+.dark .ce-conversion-toolbar__label,
+.dark .ce-toolbox__button,
+.dark .cdx-settings-button,
+.dark .ce-toolbar__plus svg {
+  color: #f5f5f5;
+}
+
+/* Fix for Post form title in admin */
+.dark input[type="text"],
+.dark textarea {
+  color: #f5f5f5;
+  background-color: #1a1a1a;
+}

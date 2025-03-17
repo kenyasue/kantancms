@@ -59,11 +59,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         return () => mediaQuery.removeEventListener('change', handleChange);
     }, [theme, mounted]);
 
-    // Prevent flash of incorrect theme
-    if (!mounted) {
-        return <>{children}</>;
-    }
-
     return (
         <ThemeContext.Provider value={{ theme, setTheme }}>
             {children}
