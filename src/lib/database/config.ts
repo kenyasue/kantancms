@@ -9,6 +9,7 @@ const sqliteConfig: DataSourceOptions = {
   database: path.join(process.cwd(), 'data', 'database.sqlite'),
   entities: [User, Post],
   synchronize: true, // Set to false in production
+  dropSchema: true, // Drop existing schema and recreate
   logging: process.env.NODE_ENV === 'development',
 };
 
@@ -41,7 +42,7 @@ const postgresConfig: DataSourceOptions = {
 // Select the database configuration based on environment variable
 const getConfig = (): DataSourceOptions => {
   const dbType = process.env.DB_TYPE || 'sqlite';
-  
+
   switch (dbType) {
     case 'mysql':
       return mysqlConfig;
