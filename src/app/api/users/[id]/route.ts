@@ -15,7 +15,7 @@ export async function GET(
 
     const user = await userRepository.findOne({
       where: { id: id },
-      select: ['id', 'username', 'avatar', 'createdAt', 'modifiedAt']
+      select: ['id', 'username', 'avatar', 'theme', 'createdAt', 'modifiedAt']
     });
 
     if (!user) {
@@ -60,6 +60,7 @@ export async function PUT(
     const formData = await request.formData();
     const username = formData.get('username') as string;
     const password = formData.get('password') as string | null;
+    const theme = formData.get('theme') as string | null;
 
     // Update username if provided
     if (username && username !== user.username) {
@@ -79,6 +80,11 @@ export async function PUT(
     if (password) {
       user.password = password;
       await user.hashPassword();
+    }
+
+    // Update theme if provided
+    if (theme) {
+      user.theme = theme;
     }
 
     // Handle avatar upload if provided

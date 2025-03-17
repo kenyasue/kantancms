@@ -1,0 +1,7 @@
+Please make following changes
+- Make feature branch features/darkmode
+- Add dark mode to tailwind theme
+- Change automatically dark mode or light mode based on browser or os settings.
+- User can select dark or light mode in profile edit 
+- Settings are saved in database
+- Commit changes and push

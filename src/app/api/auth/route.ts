@@ -97,7 +97,7 @@ export async function GET(request: NextRequest) {
         const userRepository = dataSource.getRepository(User);
         const user = await userRepository.findOne({
             where: { id: authCookie.value },
-            select: ['id', 'username', 'avatar', 'createdAt', 'modifiedAt']
+            select: ['id', 'username', 'avatar', 'theme', 'createdAt', 'modifiedAt']
         });
 
         if (!user) {

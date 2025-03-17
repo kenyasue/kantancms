@@ -17,6 +17,9 @@ export class User {
   @Column({ nullable: true, type: 'varchar', default: null })
   avatar: string | null;
 
+  @Column({ type: 'varchar', default: 'system' })
+  theme: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

@@ -8,6 +8,7 @@ interface User {
     id: string;
     username: string;
     avatar: string | null;
+    theme: string;
     createdAt: string;
     modifiedAt: string;
 }
@@ -22,6 +23,7 @@ export default function ProfileEditor({ isAdmin = false }: ProfileEditorProps) {
     const [formData, setFormData] = useState({
         username: '',
         password: '', // Optional for updates
+        theme: 'system', // Default to system
     });
     const [avatar, setAvatar] = useState<File | null>(null);
     const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
@@ -46,6 +48,7 @@ export default function ProfileEditor({ isAdmin = false }: ProfileEditorProps) {
                 setFormData({
                     username: data.user.username,
                     password: '', // Don't populate password
+                    theme: data.user.theme || 'system',
                 });
 
                 if (data.user.avatar) {
@@ -62,7 +65,7 @@ export default function ProfileEditor({ isAdmin = false }: ProfileEditorProps) {
         fetchUser();
     }, [router, isAdmin]);
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
@@ -100,6 +103,7 @@ export default function ProfileEditor({ isAdmin = false }: ProfileEditorProps) {
             // Create form data for submission
             const submitData = new FormData();
             submitData.append('username', formData.username);
+            submitData.append('theme', formData.theme);
 
             // Only include password if it was changed
             if (formData.password) {
@@ -211,6 +215,26 @@ export default function ProfileEditor({ isAdmin = false }: ProfileEditorProps) {
                         onChange={handleChange}
                         placeholder="New password (optional)"
                     />
+                </div>
+
+                <div className="mb-6">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="theme">
+                        Theme
+                    </label>
+                    <select
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="theme"
+                        name="theme"
+                        value={formData.theme}
+                        onChange={handleChange}
+                    >
+                        <option value="system">System (follow device settings)</option>
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                    </select>
+                    <p className="text-sm text-gray-500 mt-1">
+                        Choose your preferred theme or use your system settings.
+                    </p>
                 </div>
 
                 <div className="mb-6">
