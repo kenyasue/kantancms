@@ -1,5 +1,7 @@
 # Uploads Directory
 
-This directory is used to store user-uploaded files, such as avatar images.
+This directory is used to store uploaded images for the EditorJS image tool.
 
-The contents of this directory (except for this README file) are ignored by Git to avoid committing user-uploaded content to the repository.
+Images uploaded through the editor will be stored here and served as static assets.
+
+**Note:** This directory should be included in version control, but the uploaded files should be ignored.

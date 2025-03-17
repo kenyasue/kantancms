@@ -10,6 +10,7 @@ import Code from '@editorjs/code';
 import Link from '@editorjs/link';
 import Marker from '@editorjs/marker';
 import InlineCode from '@editorjs/inline-code';
+import Image from '@editorjs/image';
 
 interface EditorProps {
     data?: any;
@@ -85,6 +86,51 @@ export default function Editor({ data, onChange, placeholder, readOnly = false }
                 inlineCode: {
                     class: InlineCode,
                     shortcut: 'CMD+SHIFT+C',
+                },
+                image: {
+                    class: Image,
+                    config: {
+                        endpoints: {
+                            byFile: '/api/upload', // Your file upload endpoint
+                        },
+                        field: 'image', // Field name for the file
+                        types: 'image/*', // Accepted file types
+                        captionPlaceholder: 'Image caption',
+                        uploader: {
+                            uploadByFile(file: File) {
+                                const formData = new FormData();
+                                formData.append('image', file);
+
+                                return fetch('/api/upload', {
+                                    method: 'POST',
+                                    body: formData
+                                })
+                                    .then(response => response.json())
+                                    .then(result => {
+                                        if (result.success) {
+                                            return {
+                                                success: 1,
+                                                file: {
+                                                    url: result.file.url,
+                                                }
+                                            };
+                                        } else {
+                                            return {
+                                                success: 0,
+                                                message: result.error || 'Upload failed'
+                                            };
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error uploading image:', error);
+                                        return {
+                                            success: 0,
+                                            message: 'Upload failed'
+                                        };
+                                    });
+                            }
+                        }
+                    }
                 },
             },
             data: data && typeof data === 'string' ?

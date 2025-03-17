@@ -60,6 +60,8 @@ const renderBlock = (block: Block, index: number) => {
             return renderQuote(data, index);
         case 'code':
             return renderCode(data, index);
+        case 'image':
+            return renderImage(data, index);
         default:
             return <p key={index} className="text-gray-500">Unsupported block type: {type}</p>;
     }
@@ -135,6 +137,30 @@ const renderCode = (data: any, index: number) => {
         <pre key={index} className="bg-gray-100 p-4 rounded-md overflow-x-auto my-4">
             <code className="text-black">{code}</code>
         </pre>
+    );
+};
+
+// Render image block
+const renderImage = (data: any, index: number) => {
+    const { file, caption } = data;
+
+    if (!file || !file.url) {
+        return <p key={index} className="text-gray-500">Image not available</p>;
+    }
+
+    return (
+        <figure key={index} className="my-4">
+            <img
+                src={file.url}
+                alt={caption || 'Image'}
+                className="max-w-full h-auto rounded-md"
+            />
+            {caption && (
+                <figcaption className="text-sm text-gray-600 mt-2 text-center">
+                    {caption}
+                </figcaption>
+            )}
+        </figure>
     );
 };
 
