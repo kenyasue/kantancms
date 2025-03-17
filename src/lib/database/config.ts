@@ -9,7 +9,6 @@ const sqliteConfig: DataSourceOptions = {
   database: path.join(process.cwd(), 'data', 'database.sqlite'),
   entities: [User, Post],
   synchronize: true, // Set to false in production
-  dropSchema: true, // Drop existing schema and recreate
   logging: process.env.NODE_ENV === 'development',
 };
 
