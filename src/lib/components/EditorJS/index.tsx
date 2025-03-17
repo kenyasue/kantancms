@@ -98,6 +98,7 @@ export default function Editor({ data, onChange, placeholder, readOnly = false }
                 const savedData = await editor.save();
                 onChange(savedData);
             },
+
         });
 
         editorRef.current = editor;
@@ -151,11 +152,11 @@ export default function Editor({ data, onChange, placeholder, readOnly = false }
     };
 
     return (
-        <div className="editor-js-container">
+        <div className="editor-js-container w-full">
             <div
                 ref={holderRef}
                 id="editor"
-                className="min-h-[300px] border border-gray-300 rounded-md p-4 bg-white"
+                className="w-full min-h-[300px] border border-gray-300 rounded-md p-4 bg-white text-black pl-5"
             />
             {!isReady && (
                 <div className="text-gray-500 text-sm mt-2">

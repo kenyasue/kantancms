@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.codex-editor,
+.ce-block__content,
+.ce-toolbar__content {
+  max-width: 100%;
+}
+
+.codex-editor {
+  margin-left: 50px;
+}
