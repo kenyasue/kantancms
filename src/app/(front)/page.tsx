@@ -28,7 +28,7 @@ export default async function Home() {
 
               {/* Main content */}
               <div className="md:w-3/4 border-4 border-dashed border-gray-200 rounded-lg p-4 min-h-96">
-                <h2 className="text-2xl font-bold mb-6">Latest Posts</h2>
+                <h2 className="text-2xl font-bold text-black mb-6">Latest Posts</h2>
 
                 {posts.length > 0 ? (
                   <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

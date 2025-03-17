@@ -25,11 +25,11 @@ const EditorJSRenderer: React.FC<EditorJSRendererProps> = ({ data, className = '
 
     // If parsing failed or no blocks, render the content as plain text
     if (!parsedData || !parsedData.blocks || !Array.isArray(parsedData.blocks)) {
-        return <div className={`prose max-w-none ${className}`}>{typeof data === 'string' ? data : 'No content'}</div>;
+        return <div className={`prose max-w-none text-black ${className}`}>{typeof data === 'string' ? data : 'No content'}</div>;
     }
 
     return (
-        <div className={`editorjs-renderer prose max-w-none ${className}`}>
+        <div className={`editorjs-renderer prose max-w-none text-black ${className}`}>
             {parsedData.blocks.map((block, index) => renderBlock(block, index))}
         </div>
     );
@@ -89,7 +89,7 @@ const renderHeader = (data: any, index: number) => {
 
 // Render paragraph block
 const renderParagraph = (data: any, index: number) => {
-    return <p key={index} className="my-3" dangerouslySetInnerHTML={{ __html: data.text }} />;
+    return <p key={index} className="my-3 text-black" dangerouslySetInnerHTML={{ __html: data.text }} />;
 };
 
 // Render list block
@@ -100,7 +100,7 @@ const renderList = (data: any, index: number) => {
         return (
             <ol key={index} className="list-decimal pl-6 my-4">
                 {items.map((item: string, i: number) => (
-                    <li key={i} className="my-1" dangerouslySetInnerHTML={{ __html: item }} />
+                    <li key={i} className="my-1 text-black" dangerouslySetInnerHTML={{ __html: item }} />
                 ))}
             </ol>
         );
@@ -108,7 +108,7 @@ const renderList = (data: any, index: number) => {
         return (
             <ul key={index} className="list-disc pl-6 my-4">
                 {items.map((item: string, i: number) => (
-                    <li key={i} className="my-1" dangerouslySetInnerHTML={{ __html: item }} />
+                    <li key={i} className="my-1 text-black" dangerouslySetInnerHTML={{ __html: item }} />
                 ))}
             </ul>
         );
@@ -120,8 +120,8 @@ const renderQuote = (data: any, index: number) => {
     const { text, caption } = data;
 
     return (
-        <blockquote key={index} className="border-l-4 border-gray-300 pl-4 py-2 my-4 italic">
-            <p dangerouslySetInnerHTML={{ __html: text }} />
+        <blockquote key={index} className="border-l-4 border-gray-300 pl-4 py-2 my-4 italic text-black">
+            <p className="text-black" dangerouslySetInnerHTML={{ __html: text }} />
             {caption && <cite className="block text-sm text-gray-600 mt-2">— {caption}</cite>}
         </blockquote>
     );
@@ -133,7 +133,7 @@ const renderCode = (data: any, index: number) => {
 
     return (
         <pre key={index} className="bg-gray-100 p-4 rounded-md overflow-x-auto my-4">
-            <code>{code}</code>
+            <code className="text-black">{code}</code>
         </pre>
     );
 };

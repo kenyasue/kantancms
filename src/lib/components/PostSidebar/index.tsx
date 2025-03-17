@@ -56,7 +56,7 @@ export default async function PostSidebar() {
             <div key={post.id} className="mb-1">
                 <Link
                     href={`/posts/${post.id}`}
-                    className={`block py-1 px-2 rounded text-sm hover:bg-gray-100 ${pathname === `/posts/${post.id}` ? 'bg-gray-100 font-medium' : ''
+                    className={`block py-1 px-2 rounded text-sm text-black hover:bg-gray-100 ${pathname === `/posts/${post.id}` ? 'bg-gray-100 font-medium' : ''
                         }`}
                     style={{ paddingLeft: `${level * 16 + 8}px` }}
                     prefetch={false}
