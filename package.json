@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "create-test-user": "npx ts-node -P tsconfig.scripts.json src/scripts/create-test-user.ts"
+    "create-test-user": "npx ts-node -P tsconfig.scripts.json src/scripts/create-test-user.ts",
+    "reset-database": "npx ts-node -P tsconfig.scripts.json src/scripts/reset-database.ts"
   },
   "dependencies": {
     "@editorjs/code": "^2.9.3",

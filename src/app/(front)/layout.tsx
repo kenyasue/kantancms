@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import DatabaseInitializer from "@/lib/components/DatabaseInitializer";
 import { ThemeProvider } from "@/lib/context/ThemeContext";
+import ThemeToggleWrapper from "@/lib/components/ThemeToggleWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
         {/* Initialize database connection */}
         <DatabaseInitializer />
         <ThemeProvider>
+          <ThemeToggleWrapper />
           {children}
         </ThemeProvider>
       </body>

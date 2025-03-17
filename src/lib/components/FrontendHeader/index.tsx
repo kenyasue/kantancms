@@ -39,7 +39,7 @@ export default function FrontendHeader() {
             <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                 <h1 className="text-3xl font-bold text-gray-900">KantanCMS</h1>
                 <div className="flex items-center space-x-4">
-                    <ThemeToggle className="mr-2" />
+                    {/* ThemeToggle is now in the layout, so we don't need it here */}
                     {!isLoading && user ? (
                         <UserMenu user={user} isAdmin={false} />
                     ) : (
