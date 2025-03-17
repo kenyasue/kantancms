@@ -1,0 +1,5 @@
+Please make following changes
+- generate feature branch features/imageupload from dev branch
+- I want add upload image feature to editor.js
+- Use @editorjs/image 
+- Generate api to upload and show image
